@@ -33,7 +33,6 @@ public class FileController {
     @PostMapping(value = "", consumes = "multipart/form-data")
     FileResponse uploadFile(@RequestPart MultipartFile file) {
 
-        log.info("let:consumes");
         return fileService.uploadSingleFile(file);
     }
 
