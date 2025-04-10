@@ -4,6 +4,7 @@ package com.plasto.api.feature.file;
 import com.plasto.api.feature.file.dto.FileResponse;
 import com.plasto.api.feature.file.dto.FileViewResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/files")
 @RequiredArgsConstructor
+@Slf4j
 public class FileController {
 
     private final FileService fileService;
@@ -31,6 +33,7 @@ public class FileController {
     @PostMapping(value = "", consumes = "multipart/form-data")
     FileResponse uploadFile(@RequestPart MultipartFile file) {
 
+        log.info("let:consumes");
         return fileService.uploadSingleFile(file);
     }
 
@@ -49,7 +52,7 @@ public class FileController {
     }
 
 
-//    @PreAuthorize("hasAnyAuthority('file:delete')")
+    //    @PreAuthorize("hasAnyAuthority('file:delete')")
     @DeleteMapping("/{fileName}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteFileByName(@PathVariable String fileName) {
@@ -73,7 +76,7 @@ public class FileController {
     }
 
     @GetMapping(value = "/view/{fileName}")
-    public ResponseEntity<InputStreamResource> viewByFileName(@PathVariable String fileName) throws  IOException, NoSuchAlgorithmException, InvalidKeyException, IOException, NoSuchAlgorithmException, InvalidKeyException{
+    public ResponseEntity<InputStreamResource> viewByFileName(@PathVariable String fileName) throws IOException, NoSuchAlgorithmException, InvalidKeyException, IOException, NoSuchAlgorithmException, InvalidKeyException {
         FileViewResponse file = fileService.viewFileByFileName(fileName);
 
         return ResponseEntity

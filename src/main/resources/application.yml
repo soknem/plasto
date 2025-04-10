@@ -19,5 +19,6 @@ spring:
         format_sql: true
 media:
   storage-path: file
-  base-uri: http://localhost:8080
+  base-uri: http://localhost:8081
   image-end-point: /api/v1/files
+server.port: 8081
